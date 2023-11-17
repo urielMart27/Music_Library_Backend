@@ -19,16 +19,22 @@ namespace MusicLibraryWebAPI.Controllers
 
         // GET: api/<SongsController>
         [HttpGet]
-        public IEnumerable<string> Get()
+        public IActionResult Get()
         {
-            return new string[] { "value1", "value2" };
+            var songs = _context.Songs.ToList();
+            return StatusCode(200, songs);
         }
 
         // GET api/<SongsController>/5
         [HttpGet("{id}")]
-        public string Get(int id)
+        public IActionResult Get(int id)
         {
-            return "value";
+            var song = _context.Songs.Find(id);
+            if (song == null)
+            {
+                return NotFound();
+            }
+            return StatusCode(200, song);
         }
 
         // POST api/<SongsController>
