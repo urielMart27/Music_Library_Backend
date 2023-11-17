@@ -1,4 +1,7 @@
 
+using Microsoft.EntityFrameworkCore;
+using MusicLibraryWebAPI.Data;
+
 namespace MusicLibraryWebAPI
 {
     public class Program
@@ -13,6 +16,17 @@ namespace MusicLibraryWebAPI
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
+
+
+            var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ??
+                throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
+
+            builder.Services.AddDbContext<ApplicationDbContext>(options =>
+                    options.UseMySQL(connectionString, b => b.MigrationsAssembly(typeof
+                        (ApplicationDbContext).Assembly.FullName)));
+
+
+
 
             var app = builder.Build();
 
