@@ -48,14 +48,30 @@ namespace MusicLibraryWebAPI.Controllers
 
         // PUT api/<SongsController>/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        public IActionResult Put(int id, [FromBody] Song updateSong)
         {
-        }
+            var currentSong = _context.Songs.Find(id);
 
-        // DELETE api/<SongsController>/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
+            if (currentSong == null)
+            {
+                return NotFound();
+            }
+            currentSong.Title = updateSong.Title;
+            currentSong.Artist = updateSong.Artist;
+            currentSong.Album = updateSong.Album;
+            currentSong.ReleaseDate = updateSong.ReleaseDate;
+            currentSong.Genre = updateSong.Genre;
+
+            _context.Songs.Update(currentSong);
+            _context.SaveChanges();
+            return StatusCode(200, currentSong);
+
+
+            // DELETE api/<SongsController>/5
+            //[HttpDelete("{id}")]
+            //public void Delete(int id)
+            {
+            }
         }
     }
 }
