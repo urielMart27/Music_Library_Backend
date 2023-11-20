@@ -66,12 +66,16 @@ namespace MusicLibraryWebAPI.Controllers
             _context.SaveChanges();
             return StatusCode(200, currentSong);
 
-
-            // DELETE api/<SongsController>/5
-            //[HttpDelete("{id}")]
-            //public void Delete(int id)
-            {
-            }
+      
+        }
+        // DELETE api/<SongsController>/5
+        [HttpDelete("{id}")]
+        public IActionResult Delete(int id)
+        {
+            var song = _context.Songs.Find(id);
+            _context.Songs.Remove(song);
+            _context.SaveChanges();
+            return NoContent();
         }
     }
 }
