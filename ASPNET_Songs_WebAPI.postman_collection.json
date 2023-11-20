@@ -159,6 +159,37 @@
 				}
 			},
 			"response": []
+		},
+		{
+			"name": "Like Song",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://localhost:7073/api/Songs/4/like",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "7073",
+					"path": [
+						"api",
+						"Songs",
+						"4",
+						"like"
+					]
+				}
+			},
+			"response": []
 		}
 	]
 }

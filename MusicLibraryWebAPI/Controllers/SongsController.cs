@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using MusicLibraryWebAPI.Data;
+using MusicLibraryWebAPI.Migrations;
 using MusicLibraryWebAPI.Models;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -76,6 +77,23 @@ namespace MusicLibraryWebAPI.Controllers
             _context.Songs.Remove(song);
             _context.SaveChanges();
             return NoContent();
+        }
+
+
+        // PUT api/ Like Song
+        [HttpPut("{id}/like")]
+        public IActionResult LikeSong(int id)
+        {
+            var song = _context.Songs.Find(id);
+
+            if (song == null)
+            {
+                return NotFound("Song ID does not exist.");
+            }
+            song.Likes++;
+            _context.SaveChanges();
+            return Ok(new { NumberOfLikes = song.Likes });
+
         }
     }
 }
